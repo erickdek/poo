@@ -14,5 +14,20 @@ public class POO_P1_PRACT7_CREACIONDECLASES {
                 " - RAM: " + pc1.ram + 
                 " - TIPO: " + pc1.type_ram
         );
+        
+        Monitor screen1 = new Monitor();
+        Impresora print1 = new Impresora();
+        screen1.color = "Negro";
+        screen1.conector = "DP";
+        screen1.hz = 60;
+        screen1.marca = "ASUS";
+        screen1.modelo = "HILLIX-123K";
+        screen1.peso = 6;
+        System.out.println( 
+                " - Monitor: " + screen1.modelo +
+                " - Marca: " + screen1.marca + 
+                " - Color: " + screen1.color + 
+                " - Peso: " + screen1.peso
+        );
     }
 }
