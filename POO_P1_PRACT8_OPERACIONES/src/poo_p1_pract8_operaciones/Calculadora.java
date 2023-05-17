@@ -1,61 +1,28 @@
 package poo_p1_pract8_operaciones;
-import java.util.Scanner;
 
 public class Calculadora {
-    Scanner sc = new Scanner(System.in);  //Se crea un objeto Scanner
-    
-    
-    //Solicitar numeros
-    public float req_num (){
-        float num = sc.nextFloat();
-        return num;
+   public int sumar(int num1, int num2){ //Metodo que recibe y devuelve la suma.
+        int suma = num1+num2;
+        System.out.println(num1 + " + " + num2);
+        return suma;
     }
-    //Mostrar resultados
-    public void show_result (float result){
-        System.out.print(result);
+    public int restar(int num1, int num2){ //Metodo que recibe y devuelve la resta.
+        int resta = num1-num2;
+        System.out.println(num1 + " - " + num2);
+        return resta;
     }
-    
-    //Funcion suma
-    public void suma (){
-        float numero1, numero2;
-        numero1 = this.req_num();
-        System.out.print("+");
-        numero2 = this.req_num();
-        float result = numero1 + numero2;
-        System.out.print(" = ");
-        this.show_result(result);
+    public int multiplicar(int num1, int num2){ //Metodo que recibe y devuelve la multiplicacion.
+        int multiplicacion = num1*num2;
+        System.out.println(num1 + " * " + num2);
+        return multiplicacion;
+    }
+    public int dividir(int num1, int num2){ //Metodo que recibe y devuelve la division.
+        int division = num1/num2;
+        System.out.println(num1 + " / " + num2);
+        return division;
     }
     
-    //Funcon resta
-    public void resta (){
-        float numero1, numero2;
-        numero1 = this.req_num();
-        System.out.print("-");
-        numero2 = this.req_num();
-        float result = numero1 - numero2;
-        System.out.print(" = ");
-        this.show_result(result);
-    }
-    
-    //Funcion multiplicacion
-    public void multi (){
-        float numero1, numero2;
-        numero1 = this.req_num();
-        System.out.print("*");
-        numero2 = this.req_num();
-        float result = numero1 * numero2;
-        System.out.print(" = ");
-        this.show_result(result);
-    }
-    
-    //Funcion division
-    public void divi (){
-        float numero1, numero2;
-        numero1 = this.req_num();
-        System.out.print("/");
-        numero2 = this.req_num();
-        float result = numero1 / numero2;
-        System.out.print(" = ");
-        this.show_result(result);
+    public void resultados(int num){ //Método de tipo void que recibe datos enteros y muestra la suma.
+        System.out.println("El resultado de la operacion es: " + num);
     }
 }

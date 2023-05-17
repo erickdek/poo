@@ -8,5 +8,4 @@ public class POO_P1_PRACT9_METODO_ENTRADA_VALORES {
         Calc.show_result(Calc.multi());
         Calc.show_result(Calc.divi());
     }
-    
 }
