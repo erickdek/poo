@@ -71,6 +71,7 @@ public class TEST_ESTUDING {
                     System.out.println( "Gracias por usar");
                     break;
                 default:
+                    System.out.println( "Ingresaste una opcion invalida...");
                     break;
             }
         } while (op != 9);

@@ -88,6 +88,11 @@ public class Administracion {
             num = i; //num = 0
             num ++; //num = 1
             Notas nota = this.arrNotas.get(i); //Creamos la varaible nota que guarda un objeto tipo Notas
+            
+            /*if (nota.nota < 0 || nota.nota > 10){ //Continue sirve para omitir un i y saltar al siguiente
+                continue;
+            }*/
+            
             if (nota.getCedula() == cedula){
                 System.out.println( "El Estudiante encontrado fue: ");
                 System.out.println( num + ": Estudiante: " + nota.nombre + " - Cedula: " + nota.getCedula() + " - Nota: " + nota.nota);
