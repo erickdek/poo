@@ -27,7 +27,7 @@ La opción 1 ingresar 2 Profesores
 La opción 2 ingresar 6 alumnos
 La opción 3 ingresar 4 materias
 Al elegir la opción 4, solicitará la introducción de los datos de matrícula, guardar 4
-Con la opción 5 se mostrará el total matriculado por curso, y el total de la ESPE cuantos hombres y cuantas mujeres.
+Con la opción 5 se mostrará el total matriculado, y el total de la ESPE cuantos hombres y cuantas mujeres.
 */
 package evaluacion_u1_erick_gomez;
 import java.util.Scanner;
@@ -154,8 +154,10 @@ public class EVALUACION_U1_ERICK_GOMEZ {
                     }
                     System.out.println("Aqui estan los matriculados:");
                     admin.showMatriculas();
-                    
+                    System.out.println("Estos son la cantidad por genero:");
+                    admin.showMatriculasGeneros();
                     break;
+                    
                 case 9:
                     System.out.println("Gracias...");
                     break;
