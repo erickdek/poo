@@ -127,7 +127,7 @@ public class Gestor {
             for (Matricula matricula : this.arrMatriculas){
                 idMateria = matricula.getIdMateria();
                 Materia estudio = this.arrMaterias.get( idMateria );
-                Profesor profe = this.arrProfes.get( estudio.getIdProfesor() );
+                Profesor profe = this.arrProfes.get( estudio.getIdProfesor() ); //El error era un ID erroneo, pasaba un 1 pero el array era 0.
                 Estudiante estudent = this.arrEstudiantes.get( matricula.getIdEstudiante() );
                 System.out.println( 
                         "ID: " + position +
