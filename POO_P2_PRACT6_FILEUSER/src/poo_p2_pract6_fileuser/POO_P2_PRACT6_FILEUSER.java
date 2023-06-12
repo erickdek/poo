@@ -1,6 +1,7 @@
 package poo_p2_pract6_fileuser;
 import java.io.*;
 import java.util.*;
+import com.csvreader.*;
 
 public class POO_P2_PRACT6_FILEUSER {
     public static void main(String[] args) throws IOException {
