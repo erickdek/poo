@@ -1,46 +1,50 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package poo_p2_taller_gestion_horario;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
  * @author erick
  */
 class Laboratorio {
-    protected String nombre;
-    protected int capacidad;
-    protected List<String> equipos;
+    private String nombre;
+    private String lugar;
+    private int capacidadEstudiantes;
+    private Persona encargado;
+    private Horario horario;
 
-    public Laboratorio(String nombre, int capacidad) {
+    public Laboratorio(String nombre, String lugar, int capacidadEstudiantes, Persona encargado) {
         this.nombre = nombre;
-        this.capacidad = capacidad;
-        this.equipos = new ArrayList<>();
+        this.lugar = lugar;
+        this.capacidadEstudiantes = capacidadEstudiantes;
+        this.encargado = encargado;
+        this.horario = new Horario();
     }
 
     public String getNombre() {
         return nombre;
     }
 
-    public int getCapacidad() {
-        return capacidad;
+    public String getLugar() {
+        return lugar;
     }
 
-    public List<String> getEquipos() {
-        return equipos;
+    public int getCapacidadEstudiantes() {
+        return capacidadEstudiantes;
     }
 
-    public void agregarEquipo(String equipo) {
-        equipos.add(equipo);
+    public Persona getEncargado() {
+        return encargado;
     }
 
-    public boolean verificarDisponibilidad(String horario) {
-        // Implementa aquí la lógica para verificar la disponibilidad de un horario específico
-        // Puedes adaptarla según tus necesidades
+    public void setEncargado(Persona encargado) {
+        this.encargado = encargado;
+    }
+    
+    public boolean setHora(int dia, int hora, String asignatura){
+        horario.asignarHorario(dia, hora, asignatura, this.nombre);
         return true;
+    }
+    
+    public void showHorario(){
+        horario.mostrarHorario();
     }
 }

@@ -1,7 +1,27 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
+/* RELAGLAS DEL NEGOCIO
+Una institución educativa JUNTOS POR LA EDUCACIÓN TECNOLÓGICA SUPERIOR, necesita un sistema para gestionar los horarios de sus laboratorios.
+Cada laboratorio tiene un nombre, una capacidad máxima de estudiantes y un conjunto de equipos disponibles. Responsable dl laboratorio,
+director de todos los laboratorios.
+La institución necesita un sistema orientado a objetos en el cual debe permitir asignar horarios a diferentes asignaturas y controlar 
+la disponibilidad de los laboratorios.
+
+Los requisitos del sistema son:
+
+•	Crear el uml, caso de uso, diagrama de secuencia, diagrama de clases.
+•	Crea una clase padre o base llamada Laboratorio que tenga los atributos comunes a todos los laboratorios: nombre, capacidad y equipos. (USTED OUEDE PONER SUS ATRIBUTOS)
+•	Crea clases hija o derivada para cada tipo de laboratorio, como Laboratorio1, Laboratorio2, etc., que hereden de la clase padre 
+        Laboratorio.
+•	Cada clase hija debe tener atributos y métodos específicos según el tipo, espacio, lugar y con lo que cuenta cada laboratorio.
+•	Implementa constructores en cada clase para inicializar los atributos correspondientes.
+•	Crea una clase Asignatura que tenga atributos como nombre y horario. (tú puedes poner tus atributos)
+•	La clase Asignatura debe tener un atributo de tipo Laboratorio que representa el laboratorio asignado.
+•	Implementa un método en la clase Laboratorio para verificar la disponibilidad de un horario específico.
+•	Crea una clase principal que permita agregar laboratorios, asignar horarios a asignaturas y mostrar la información de los 
+        laboratorios. (debe pedirme cuantos laboratorios se va ingresar y llenar lo que contiene cada laboratorio, todo debe pedir por
+        consola, igual cuantas asignaturas e ingresar las asignaturas)
+
+Utiliza UML, la herencia, las clases, los objetos, los constructores y los atributos adecuadamente para resolver el problema
+*/
 package poo_p2_taller_gestion_horario;
 import  java.util.*;
 /**
@@ -9,159 +29,193 @@ import  java.util.*;
  * @author erick
  */
 public class POO_P2_TALLER_GESTION_HORARIO {
-    
-    private static List<Laboratorio> laboratorios;
-    private static List<Asignatura> asignaturas;
-    private static Menu menu;
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-    
-        laboratorios = new ArrayList<>();
-        asignaturas = new ArrayList<>();
-        menu = new Menu();
+        Scanner scanner = new Scanner(System.in);
 
-        boolean salir = false;
+        List<Laboratorio> laboratorios = new ArrayList<>();
+        List<Asignatura> asignaturas = new ArrayList<>();
+        List<Persona> empleados = new ArrayList<>();
+        Menu mn = new Menu();
+        Horario horario = new Horario();
+        Persona director = null;
+        int laboratorioIndex;
 
-        while (!salir) {
-            int opcion = menu.mostrarMenu();
+        int opcion;
+        do {
+            mn.mostrarMenuPrincipal();
+            opcion = scanner.nextInt();
+            scanner.nextLine(); // Limpiar el salto de línea
 
             switch (opcion) {
                 case 1:
-                    agregarLaboratorio();
+                    try {
+                        //SOLICITAR LOS DATOS
+                        System.out.println("Ingrese los datos del laboratorio:");
+                        System.out.print("Nombre: ");
+                        String nombreLab = scanner.nextLine();
+                        System.out.print("Lugar: ");
+                        String lugarLab = scanner.nextLine();
+                        System.out.print("Capacidad de estudiantes: ");
+                        int capacidadEstudiantes = scanner.nextInt();
+                        scanner.nextLine(); // Limpiar el salto de línea
+                        
+                        //MOSTRAR LOS TIPOS DE LABORATORIOS
+                        mn.mostrarTipoLaboratory();
+                        int tipoLab = scanner.nextInt();
+                        scanner.nextLine(); // Limpiar el salto de línea
+
+                        //SELECCIONAR AL ENCARGADO
+                        System.out.println("Seleccione el encargado del laboratorio:");
+                        for (int i = 0; i < empleados.size(); i++) {
+                            System.out.println((i + 1) + ". " + empleados.get(i).getNombre());
+                        }
+                        int encargadoIndex = scanner.nextInt();
+                        scanner.nextLine(); // Limpiar el salto de línea
+
+                        Persona encargadoLab = empleados.get(encargadoIndex - 1);
+
+                        Laboratorio laboratorio;
+                        switch (tipoLab) {
+                            case 1:
+                                laboratorio = new Laboratorio(nombreLab, lugarLab, capacidadEstudiantes, encargadoLab);
+                                break;
+                            case 2:
+                                laboratorio = new LabTech(nombreLab, lugarLab, capacidadEstudiantes, encargadoLab);
+                                break;
+                            case 3:
+                                laboratorio = new LabChem(nombreLab, lugarLab, capacidadEstudiantes, encargadoLab);
+                                break;
+                            default:
+                                System.out.println("Tipo de laboratorio inválido");
+                                continue;
+                        }
+                        laboratorios.add(laboratorio);
+                    } catch(Exception e){
+                        System.out.println("Hubo un error...");
+                    }
+                    
                     break;
                 case 2:
-                    asignarHorarioAsignatura();
+                    try {
+                        System.out.println("Ingrese el nombre de la asignatura:");
+                        String nombreAsignatura = scanner.nextLine();
+                        Asignatura asignatura = new Asignatura(nombreAsignatura);
+                        asignaturas.add(asignatura);
+                    } catch (Exception e){
+                        System.out.println("Hubo un error...");
+                    }
                     break;
                 case 3:
-                    mostrarInformacionLaboratorios();
+                    try {
+                        System.out.println("Seleccione el laboratorio:");
+                        //Visualizar los laboratorios
+                        for (int i = 0; i < laboratorios.size(); i++) {
+                            System.out.println((i + 1) + ". " + laboratorios.get(i).getNombre());
+                        }
+                        laboratorioIndex = scanner.nextInt();
+                        scanner.nextLine(); // Limpiar el salto de línea
+                        System.out.println("Seleccione la asignatura:");
+                        //Visualizar las asignaturas
+                        for (int i = 0; i < asignaturas.size(); i++) {
+                            System.out.println((i + 1) + ". " + asignaturas.get(i).getNombre());
+                        }
+                        int asignaturaIndex = scanner.nextInt();
+                        scanner.nextLine(); // Limpiar el salto de línea
+
+                        mn.mostrarDias();
+                        int dia = scanner.nextInt();
+                        scanner.nextLine(); // Limpiar el salto de línea
+
+                        mn.mostrarHoras();
+                        int hora = scanner.nextInt();
+                        scanner.nextLine(); // Limpiar el salto de línea
+
+                        String asignaturaNombre = asignaturas.get(asignaturaIndex - 1).getNombre();
+                        String laboratorioNombre = laboratorios.get(laboratorioIndex - 1).getNombre();
+                        boolean exito = laboratorios.get(laboratorioIndex - 1).setHora(dia - 1, hora - 1, asignaturaNombre);
+                        if (exito) {
+                            System.out.println("Asignatura programada exitosamente en el horario.");
+                        } else {
+                            System.out.println("No se pudo programar la asignatura en el horario. La hora ya está ocupada.");
+                        }
+                    } catch(Exception e){
+                        System.out.println("Hubo un error...");
+                    }
+                    
                     break;
                 case 4:
-                    salir = true;
+                    //Visualizar los laboratorios
+                    try {
+                        for (int i = 0; i < laboratorios.size(); i++) {
+                            System.out.println((i + 1) + ". HORARIO - " + laboratorios.get(i).getNombre());
+                            laboratorios.get(i).showHorario();
+                        }
+                    } catch(Exception e){
+                        System.out.println("Hubo un error al mostrar los horarios...");
+                    }
+                    
+                    break;
+                case 5:
+                    try {
+                        System.out.println("Seleccione el laboratorio:");
+                        for (int i = 0; i < laboratorios.size(); i++) {
+                            System.out.println((i + 1) + ". " + laboratorios.get(i).getNombre());
+                        }
+                        laboratorioIndex = scanner.nextInt();
+                        scanner.nextLine(); // Limpiar el salto de línea
+
+                        Laboratorio labSeleccionado = laboratorios.get(laboratorioIndex - 1);
+                        Persona encargadoSeleccionado = labSeleccionado.getEncargado();
+                        Persona directorSeleccionado = director;
+
+                        System.out.println("Datos del laboratorio:");
+                        System.out.println("Nombre: " + labSeleccionado.getNombre());
+                        System.out.println("Lugar: " + labSeleccionado.getLugar());
+                        System.out.println("Capacidad de estudiantes: " + labSeleccionado.getCapacidadEstudiantes());
+                        System.out.println("Encargado: " + encargadoSeleccionado.getNombre());
+                        System.out.println("Director: " + directorSeleccionado.getNombre());
+                        //Mostramos el horario del laboratorio
+                        labSeleccionado.showHorario();
+                    } catch (Exception e){
+                        System.out.println("Hubo un error...");
+                    }
+                    break;
+                case 6:
+                    try {
+                        System.out.println("Ingrese los datos del empleado:");
+                        System.out.print("Nombre: ");
+                        String nombreEmpleado = scanner.nextLine();
+                        Persona empleado = new Persona(nombreEmpleado);
+                        empleados.add(empleado);
+                    } catch (Exception e){
+                        System.out.println("Hubo un error...");
+                    }
+                    
+                    break;
+                case 7:
+                    try {
+                        System.out.println("Seleccione el nuevo director:");
+                        for (int i = 0; i < empleados.size(); i++) {
+                            System.out.println((i + 1) + ". " + empleados.get(i).getNombre());
+                        }
+                        int nuevoDirectorIndex = scanner.nextInt();
+                        scanner.nextLine(); // Limpiar el salto de línea
+
+                        director = empleados.get(nuevoDirectorIndex - 1);
+                    } catch (Exception e) {
+                        System.out.println("Hubo un error...");
+                    }
+                    
+                    break;
+                case 8:
+                    System.out.println("Gracias por usar el programa. ¡Hasta luego!");
                     break;
                 default:
-                    System.out.println("Opción inválida. Por favor, seleccione una opción válida.");
+                    System.out.println("Opción inválida. Por favor, ingrese un número válido.");
                     break;
             }
-        }
+        } while (opcion != 8);
+
+        scanner.close();
     }
-
-    private static void agregarLaboratorio() {
-        String nombre = menu.pedirNombre();
-        int capacidad = menu.pedirCapacidad();
-        int tipoLaboratorio = seleccionarTipoLaboratorio();
-
-        Laboratorio laboratorio;
-        if (tipoLaboratorio == 1) {
-            String ubicacion = menu.pedirUbicacion();
-            laboratorio = new Laboratorio1(nombre, capacidad, ubicacion);
-        } else {
-            String tipo = menu.pedirTipo();
-            laboratorio = new Laboratorio2(nombre, capacidad, tipo);
-        }
-
-        while (true) {
-            System.out.print("¿Desea agregar un equipo al laboratorio? (S/N): ");
-            String respuesta = menu.pedirRespuestaSiNo();
-            if (respuesta.equalsIgnoreCase("S")) {
-                String equipo = menu.pedirEquipo();
-                laboratorio.agregarEquipo(equipo);
-            } else {
-                break;
-            }
-        }
-
-        laboratorios.add(laboratorio);
-        System.out.println("Laboratorio agregado exitosamente.");
-    }
-
-    private static int seleccionarTipoLaboratorio() {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("Seleccione el tipo de laboratorio:");
-        System.out.println("1. Laboratorio 1");
-        System.out.println("2. Laboratorio 2");
-        System.out.print("Ingrese una opción: ");
-
-        int opcion = scanner.nextInt();
-        while (opcion < 1 || opcion > 2) {
-            System.out.println("Opción inválida. Por favor, seleccione una opción válida.");
-            System.out.print("Ingrese una opción: ");
-            opcion = scanner.nextInt();
-        }
-
-        return opcion;
-    }
-
-    private static void asignarHorarioAsignatura() {
-        if (laboratorios.isEmpty()) {
-            System.out.println("No se han agregado laboratorios. Por favor, agregue laboratorios primero.");
-            return;
-        }
-
-        String nombreAsignatura = menu.pedirNombreAsignatura();
-        String horarioAsignatura = menu.pedirHorarioAsignatura();
-
-        Laboratorio laboratorioAsignado = seleccionarLaboratorio();
-
-        if (laboratorioAsignado == null) {
-            System.out.println("No se ha seleccionado ningún laboratorio. Asignatura no asignada.");
-            return;
-        }
-
-        Asignatura asignatura = new Asignatura(nombreAsignatura, horarioAsignatura, laboratorioAsignado);
-        asignaturas.add(asignatura);
-
-        System.out.println("Asignatura asignada exitosamente.");
-    }
-
-    private static Laboratorio seleccionarLaboratorio() {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("Seleccione un laboratorio:");
-
-        for (int i = 0; i < laboratorios.size(); i++) {
-            Laboratorio laboratorio = laboratorios.get(i);
-            System.out.println((i + 1) + ". " + laboratorio.getNombre());
-        }
-
-        System.out.print("Ingrese una opción: ");
-        int opcion = scanner.nextInt();
-
-        if (opcion < 1 || opcion > laboratorios.size()) {
-            System.out.println("Opción inválida. No se ha seleccionado ningún laboratorio.");
-            return null;
-        }
-
-        return laboratorios.get(opcion - 1);
-    }
-
-    private static void mostrarInformacionLaboratorios() {
-        if (laboratorios.isEmpty()) {
-            System.out.println("No se han agregado laboratorios.");
-            return;
-        }
-
-        System.out.println("Información de los laboratorios:");
-
-        for (Laboratorio laboratorio : laboratorios) {
-            System.out.println("Nombre: " + laboratorio.getNombre());
-            System.out.println("Capacidad: " + laboratorio.getCapacidad());
-
-            if (laboratorio instanceof Laboratorio1) {
-                Laboratorio1 lab1 = (Laboratorio1) laboratorio;
-                System.out.println("Ubicación: " + lab1.getUbicacion());
-            } else if (laboratorio instanceof Laboratorio2) {
-                Laboratorio2 lab2 = (Laboratorio2) laboratorio;
-                System.out.println("Tipo: " + lab2.getTipo());
-            }
-
-            List<String> equipos = laboratorio.getEquipos();
-            System.out.println("Equipos: " + equipos.toString());
-
-            System.out.println();
-        }
-    }
-    
 }
