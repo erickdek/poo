@@ -103,5 +103,4 @@ public class Vehiculos {
         this.color = color;
     }
     
-    
 }
