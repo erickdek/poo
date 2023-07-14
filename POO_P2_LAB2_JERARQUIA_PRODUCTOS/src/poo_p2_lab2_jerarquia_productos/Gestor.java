@@ -24,7 +24,7 @@ public class Gestor {
             double total = 0.0;
             
             for( Order pedido : Pedidos){
-                Product product = Productos.get(pedido.ProductID);
+                Product product = Productos.get(pedido.ProductID - 1 );
                 result += product.getPrecio() * pedido.CountProduct;
                 if (product.getDays() == 1){
                     off += product.getPrecio() * 0.2;
@@ -50,9 +50,10 @@ public class Gestor {
     public void showOrder(){
         try {
             int i = 1;
+            System.out.println("Pedidos: ");
             for( Order pedido : Pedidos){
-                Product product = Productos.get(pedido.ProductID);
-                System.out.println("Pedido: ");
+                Product product = Productos.get(pedido.ProductID - 1);
+                
                 System.out.println(
                         "==============================" +
                         "\nID:" + i +
