@@ -26,12 +26,16 @@ public class Gestor {
             for( Order pedido : Pedidos){
                 Product product = Productos.get(pedido.ProductID - 1 );
                 result += product.getPrecio() * pedido.CountProduct;
+                //Si el producto es un standard y hay en el pedido 5 o mas, dar un 10% de descuento.
+                if (product.offDays == 0 && pedido.CountProduct >= 5) off += product.getPrecio() * 0.1 * pedido.CountProduct;
+                
+                //Condiciones para los productos ofertados
                 if (product.getDays() == 1){
-                    off += product.getPrecio() * 0.2;
+                    off += product.getPrecio() * 0.2 * pedido.CountProduct;
                 } else if (product.getDays() == 2 || product.getDays() == 3){
-                    off += product.getPrecio() * 0.15;
+                    off += product.getPrecio() * 0.15 * pedido.CountProduct;
                 }  else if (product.getDays() > 3 ){
-                    off += product.getPrecio() * 0.10;
+                    off += product.getPrecio() * 0.10 * pedido.CountProduct;
                 }
             }
             total = result - off;
@@ -130,6 +134,8 @@ public class Gestor {
                     "2. Con Oferta"
             );
             type = sc.nextInt();
+            sc.nextLine();
+            
             switch (type) {
                 case 1:
                     System.out.println("Ingrese la seccion del producto");

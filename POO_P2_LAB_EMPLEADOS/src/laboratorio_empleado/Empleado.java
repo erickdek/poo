@@ -6,17 +6,15 @@ public abstract class Empleado {
     private int edad;
     private LocalDate fechaingreso;
     double salario;
-    final double bono = 450.0;
+    final double bono = 450.0; //Final es constante
     
     public abstract void incentivar();
   
-
     public Empleado(String nombre, int edad, LocalDate fechaingreso, double salario) {
         this.nombre = nombre;
         this.edad = edad;
         this.fechaingreso = fechaingreso;
         this.salario = salario;
-        
     }
 
     public LocalDate getFechaingreso() {

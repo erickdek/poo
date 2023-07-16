@@ -45,7 +45,7 @@ public class POO_P2_LAB2_JERARQUIA_PRODUCTOS {
             return data;
         } catch (Exception e){
             System.out.println("Se produjo un error...");
-            return -9999;
+            return 0;
         }
     }
 }
