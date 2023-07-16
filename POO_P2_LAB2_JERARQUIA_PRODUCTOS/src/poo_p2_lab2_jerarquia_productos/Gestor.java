@@ -12,12 +12,9 @@ public class Gestor {
         Productos = new ArrayList();
         Pedidos = new ArrayList();
     }
-    public double ObtenerPrecioPedido(){
-        return 0.0;
-    }
     
     //Mostrar el total de los pedidos
-    public void showTotal(){
+    public void ObtenerPrecioPedido(){
         try {
             double result = 0.0;
             double off = 0.0;
@@ -67,7 +64,7 @@ public class Gestor {
                 );
                 i++;
             }
-            this.showTotal();
+            this.ObtenerPrecioPedido();
         } catch (Exception e){
             System.out.println("Se produjo un error... se cancelo el proceso...");
         }

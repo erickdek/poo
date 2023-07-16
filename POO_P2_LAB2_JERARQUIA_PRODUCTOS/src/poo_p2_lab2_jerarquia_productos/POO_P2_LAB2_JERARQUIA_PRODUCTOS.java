@@ -28,7 +28,7 @@ public class POO_P2_LAB2_JERARQUIA_PRODUCTOS {
                     break;
                 case 4:
                     gs.showOrder();
-                    break; 
+                    break;
                 default:
                     System.out.println("Una opcion invalida.");
                     break;
