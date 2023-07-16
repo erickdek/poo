@@ -1,15 +1,12 @@
-
 package laboratorio_empleado;
-
 import java.time.LocalDate;
-
 
 public abstract class Empleado {
     private String nombre;
     private int edad;
     private LocalDate fechaingreso;
     double salario;
-    final double bono=450.0;
+    final double bono = 450.0;
     
     public abstract void incentivar();
   

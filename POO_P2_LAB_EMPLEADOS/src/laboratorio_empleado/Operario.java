@@ -1,6 +1,4 @@
-
 package laboratorio_empleado;
-
 import java.time.LocalDate;
 import java.time.Period;
 
@@ -24,47 +22,49 @@ public class Operario extends Empleado {
     @Override
     public void incentivar() {
       
-        if(getEdad()>30&&this.getNivel()>2){
-            System.out.println("SE HA HECHO ACREEDOR A UN DOBLE BONO POR SUPERAR LOS 30 AÑOS DE EDAD"
-                    + "Y TENER UN NIVEL SUPERIOR A 2");
-            setSalario(getSalario()+(2*bono));
-            System.out.println("SU SALARIO ACTUAL ES DE :"+getSalario());
-            
-            
-        }else {
-            if(getEdad()>30||this.getNivel()>2){
-                if(getEdad()>30){
-                    System.out.println("SE HA HECHO ACREEDOR A UN BONO POR SUPERAR LOS 30 AÑOS DE EDAD");
-                    setSalario(getSalario()+bono);
-                    System.out.println("SU SALARIO ACTUAL ES DE :"+getSalario());
-                    
-                }else{
-                    System.out.println("SE HA HECHO ACREEDOR A UN BONO POR SUPERAR EL NIVEL 2");
-                    setSalario(getSalario()+bono);
-                    System.out.println("SU SALARIO ACTUAL ES DE :"+getSalario());
-                }
-            }else{
-                System.out.println("NO HA RECIBIDO NIGUNA BONIFICACIÓN A SU SALARIO");
-            }
+        if( getEdad()>30 && this.getNivel()>2 ){
+            System.out.println("Por superar los 30 años, y un nivel mayor a 2, obtendra un doble bono");
+            //Obtener el doble bono y sumarle al salario actual
+            setSalario( getSalario() + (2*bono) );
+            System.out.println("Su salario actual es de: $USD"+getSalario());
+            return;
+
+        } else if(getEdad()>30){
+            System.out.println("Por superar los 30 años de edad, recibio un bono");
+            //Obtener el bono y sumarle al salario actual
+            setSalario(getSalario()+bono);
+            System.out.println("Su salario actual es de: $USD:"+getSalario());
+            return;
+
+        } else if (this.getNivel()>2){
+            System.out.println("Por superar el nivel 2, recibio un bono");
+            setSalario(getSalario()+bono);
+            System.out.println("Su salario actual es de: $USD"+getSalario());
+            return;
         }
+
+        //Caso contrario todo
+        System.out.println("No ha sido aceptado para el Bono...");
+        
         
     }
     
     public void actualizarnivel(){
-        LocalDate fechaactual= LocalDate.now();
-        Period diferencia= Period.between(getFechaingreso(), fechaactual);
-        int años = diferencia.getYears();
-        int meses=diferencia.getMonths();
-        int dias=diferencia.getDays();
-        int totaldias=(((años*12)*365)+dias);
-        System.out.println(totaldias);
-        System.out.println("USTED LLEVA EN SU ACTUAL TRABAJO "+años+" años"+meses+" meses"+dias+" dias");
-        if(totaldias>730){
+        LocalDate currentDate = LocalDate.now();
+        Period difFechas = Period.between(getFechaingreso(), currentDate);
+        int numYears = difFechas.getYears();
+        int numMeses = difFechas.getMonths();
+        int numDias = difFechas.getDays();
+        int numTDias = (numYears * 12 * 365) + numDias;
+        
+        System.out.println(numTDias);
+        System.out.println("Usted ha estado trabajando por: " + numYears + " años, " + numMeses + " meses y " + numDias + " dias");
+        if(numTDias>730){
             if(getNivel()<5){
                 setNivel(getNivel()+1);
-                System.out.println("USTED LLEVA MAS DE DOS AÑOS EN LA EMPRESA A SIDO PROMOVIDO AL NIVEL "+getNivel());
+                System.out.println("Usted lleva mas de 2 años en la empresa, su nivel ahora es: "+getNivel());
             }else{
-                System.out.println("SU NIVEL YA ES EL 5");
+                System.out.println("Su nivel actual ya es igual a 5");
             }
         }
         

@@ -1,6 +1,4 @@
-
 package laboratorio_empleado;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -10,86 +8,105 @@ public class Laboratorio_empleado {
    
     public static void main(String[] args) {
         // TODO code application logic here
-        Scanner entrada= new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
         String nombre,departamento;
         String fechaingresost=null;
         int edad,nivel,numpersonal,error;
         
         double salario;
         LocalDate fechaingreso=null;
-        int op1;
+        int op;
         
         do{
-            System.out.println("-----------BIENVENIDOS AL SISTEMA DE GESTION DE EMPLEADOS--------------"
-                + "\n1. Director"
-                + "\n2. Operario"
-                + "\n3. Salir"
-                + "\n Digite 1,2,3");
-            op1=entrada.nextInt();
-            switch(op1){
+            System.out.println(
+                "Elija una opcion" +
+                "\n1. Director" +
+                "\n2. Operario" +
+                "\n3. Salir"
+            );
+            op = sc.nextInt();
+            switch(op){
                 case 1:
-                 
-                    entrada.nextLine();
-                    System.out.println("USUARIO DIRECTOR ");
-                    System.out.print("INGRESE SU NOMBRE: ");
-                    nombre=entrada.nextLine();
-                    System.out.print("INGRESE SU EDAD: ");
-                    edad=entrada.nextInt();
-                    entrada.nextLine();
+                    //Limpieza
+                    sc.nextLine();
+                    System.out.println("Usuario tipo Director ");
+                    System.out.print("Ingrese el nombre: ");
+                    nombre=sc.nextLine();
+                    System.out.print("Ingrese la edad: ");
+                    edad=sc.nextInt();
+                    sc.nextLine();
                     error=0;
+                    
+                    //Solicitar una fecha con un formato en especifico
                     do{
                         try{
-                            System.out.print("INGRESE LA FECHA QUE INGRESO A TRABAJAR en el formato(YYYY-MM-DD): ");
-                            fechaingresost=entrada.nextLine();
+                            System.out.print("Fecha que ingreso a trabajar en formato: (YYYY-MM-DD): ");
+                            fechaingresost = sc.nextLine();
                             fechaingreso=LocalDate.parse(fechaingresost, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
                             error=0;
                         }catch(DateTimeParseException e){
-                            System.out.println("LA FECHA INGRESADA NO ESTA EN EL FORMATO (YYYY-MM-DD)");
+                            System.out.println("La fecha no corresponde con el formato año-mes-dia (YYYY-MM-DD)");
                             error=1;
-                        }
-                                
-                    }while(error==1);
-                    System.out.print("INGRESE SU SALARIO ANUAL: ");
-                    salario=entrada.nextDouble();
-                    entrada.nextLine();
-                    System.out.print("INGRESE AL DEPARTAMENTO QUE PERTENECE: ");
-                    departamento= entrada.nextLine();
-                    System.out.print("INGRESE CUANTO PERSONAL MANEJA: ");
-                    numpersonal= entrada.nextInt();
+                        } 
+                    }while( error == 1);
+                    
+                    System.out.print("Ingrese su salario actual: ");
+                    salario=sc.nextDouble();
+                    sc.nextLine();
+                    System.out.print("Ingrese el departamento que pertenece: ");
+                    departamento= sc.nextLine();
+                    System.out.print("Ingrese la cantidad de personas que esta encargado: ");
+                    numpersonal= sc.nextInt();
+                    
+                    //Nuevo objeto con los datos
                     Director dir= new Director(nombre,edad,fechaingreso,salario,departamento,numpersonal);
                     dir.incentivar();
-                    
                     break;
                     
                 case 2:
-                    entrada.nextLine();
-                    System.out.println("USUARIO OPERARIO ");
-                    System.out.print("INGRESE SU NOMBRE: ");
-                    nombre=entrada.nextLine();
-                    System.out.print("INGRESE SU EDAD: ");
-                    edad=entrada.nextInt();
-                    entrada.nextLine();
-                    System.out.print("INGRESE LA FECHA QUE INGRESO A TRABAJAR en el formato(YYYY-MM-DD): ");
-                    fechaingresost=entrada.nextLine();
-                    fechaingreso=LocalDate.parse(fechaingresost, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                    System.out.print("INGRESE SU SALARIO ANUAL: ");
-                    salario=entrada.nextDouble();
-                    entrada.nextLine();
-                    System.out.print("INGRESE EL NIVEL EN QUE SE ENCUENTRA: ");
-                    nivel= entrada.nextInt();
-                    Operario oper= new Operario(nombre,edad,fechaingreso,salario,nivel);
+                    sc.nextLine();
+                    System.out.println("Operario ");
+                    System.out.print("Ingrese el nombre: ");
+                    nombre=sc.nextLine();
+                    System.out.print("Ingrese la edad: ");
+                    edad=sc.nextInt();
+                    sc.nextLine();
+                    error = 0;
+                    
+                    //Solicitar una fecha con un formato en especifico
+                    do{
+                        try{
+                            System.out.print("Fecha que ingreso a trabajar en formato: (YYYY-MM-DD): ");
+                            fechaingresost = sc.nextLine();
+                            fechaingreso=LocalDate.parse(fechaingresost, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                            error=0;
+                        }catch(DateTimeParseException e){
+                            System.out.println("La fecha no corresponde con el formato año-mes-dia (YYYY-MM-DD)");
+                            error=1;
+                        }
+                                
+                    }while( error == 1);
+                    
+                    System.out.print("Ingrese su salario actual: ");
+                    salario=sc.nextDouble();
+                    sc.nextLine();
+                    System.out.print("Ingrese el nivel actual: ");
+                    nivel= sc.nextInt();
+                    
+                    //Nuevo objeto con los datos
+                    Operario oper = new Operario(nombre,edad,fechaingreso,salario,nivel);
                     oper.actualizarnivel();
                     oper.incentivar();
-                    
                     break;
+                    
                 default:
-                    System.out.println("SALIENDO.....");
+                    System.out.println("Gracias por usar.");
                     break;
                     
                  
                     
             }
-        }while(op1!=3);
+        }while(op != 3);
         
     }
     

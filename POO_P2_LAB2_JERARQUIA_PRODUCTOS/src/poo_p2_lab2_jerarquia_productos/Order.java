@@ -8,4 +8,9 @@ import java.util.*;
 public class Order {
     int ProductID;
     int CountProduct;
+
+    public Order(int ProductID, int CountProduct) {
+        this.ProductID = ProductID;
+        this.CountProduct = CountProduct;
+    }
 }

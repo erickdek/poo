@@ -50,7 +50,7 @@ public class Gestor {
     public void showOrder(){
         try {
             int i = 1;
-            System.out.println("Pedidos: ");
+            System.out.println("Pedidos: " + Pedidos.size() );
             for( Order pedido : Pedidos){
                 Product product = Productos.get(pedido.ProductID - 1);
                 
@@ -58,7 +58,8 @@ public class Gestor {
                         "==============================" +
                         "\nID:" + i +
                         "\nProducto: " + product.getNombre() +
-                        "\nPrecio: $USD" + product.getPrecio()
+                        "\nPrecio: $USD" + product.getPrecio() +
+                        "\nCantidad: " + pedido.CountProduct
                 );
                 i++;
             }
@@ -72,14 +73,17 @@ public class Gestor {
     public void addOrder(Scanner sc){
         try {
             sc.nextLine();
-            long idProduct, stock;
+            int idProduct, stock;
             System.out.println("---REGISTRO DE PEDIDO---");
             this.showProducts();
             System.out.println("Ingrese el ID del producto: ");
-            idProduct = sc.nextLong();
+            idProduct = sc.nextInt();
             
             System.out.println("Ingrese la cantidad del pedido: ");
-            stock = sc.nextLong();
+            stock = sc.nextInt();
+            
+            //Se agrega un pedido al array
+            Pedidos.add(new Order(idProduct, stock));
             
             System.out.println("Se guardo el pedido.");
         } catch (Exception e){
@@ -112,7 +116,7 @@ public class Gestor {
     public void addProduct(Scanner sc){
         try {
             sc.nextLine();
-            String name, sec = null;double precio;long days = 0;int type;
+            String name, sec = "";double precio;long days = 0;int type;
             System.out.println("---REGISTRO DE PRODUCTO---");
             System.out.println("Ingrese el nombre del producto");
             name = sc.nextLine();
