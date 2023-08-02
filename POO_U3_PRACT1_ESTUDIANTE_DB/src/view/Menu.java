@@ -108,14 +108,13 @@ public class Menu extends javax.swing.JFrame {
 
     private void editMenuMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_editMenuMenuSelected
         view_form_estudiante f_estudiante = new view_form_estudiante();
-        f_estudiante.setSize(750,357);
         f_estudiante.setLocation(0,0);
         desktop.removeAll();
         desktop.add(f_estudiante);
         desktop.revalidate();
         desktop.repaint();
-        //f_estudiante.toFront();
-        //f_estudiante.setVisible(true);
+        f_estudiante.toFront();
+        f_estudiante.setVisible(true);
     }//GEN-LAST:event_editMenuMenuSelected
  
     /**
