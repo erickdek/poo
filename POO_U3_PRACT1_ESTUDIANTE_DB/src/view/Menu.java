@@ -33,7 +33,10 @@ public class Menu extends javax.swing.JFrame {
         saveMenuItem = new javax.swing.JMenuItem();
         saveAsMenuItem = new javax.swing.JMenuItem();
         exitMenuItem = new javax.swing.JMenuItem();
-        editMenu = new javax.swing.JMenu();
+        btnGestion = new javax.swing.JMenu();
+        btnEstudiante = new javax.swing.JMenuItem();
+        btnProfesores = new javax.swing.JMenuItem();
+        btnHorario = new javax.swing.JMenuItem();
         helpMenu = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -69,18 +72,46 @@ public class Menu extends javax.swing.JFrame {
 
         menuBar.add(fileMenu);
 
-        editMenu.setMnemonic('e');
-        editMenu.setText("Estudiante");
-        editMenu.addMenuListener(new javax.swing.event.MenuListener() {
+        btnGestion.setMnemonic('e');
+        btnGestion.setText("Gestion");
+        btnGestion.addMenuListener(new javax.swing.event.MenuListener() {
             public void menuCanceled(javax.swing.event.MenuEvent evt) {
             }
             public void menuDeselected(javax.swing.event.MenuEvent evt) {
             }
             public void menuSelected(javax.swing.event.MenuEvent evt) {
-                editMenuMenuSelected(evt);
+                btnGestionMenuSelected(evt);
             }
         });
-        menuBar.add(editMenu);
+
+        btnEstudiante.setMnemonic('o');
+        btnEstudiante.setText("Estudiantes");
+        btnEstudiante.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEstudianteActionPerformed(evt);
+            }
+        });
+        btnGestion.add(btnEstudiante);
+
+        btnProfesores.setMnemonic('o');
+        btnProfesores.setText("Profesores");
+        btnProfesores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProfesoresActionPerformed(evt);
+            }
+        });
+        btnGestion.add(btnProfesores);
+
+        btnHorario.setMnemonic('o');
+        btnHorario.setText("Horario");
+        btnHorario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHorarioActionPerformed(evt);
+            }
+        });
+        btnGestion.add(btnHorario);
+
+        menuBar.add(btnGestion);
 
         helpMenu.setMnemonic('h');
         helpMenu.setText("Help");
@@ -106,7 +137,11 @@ public class Menu extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_exitMenuItemActionPerformed
 
-    private void editMenuMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_editMenuMenuSelected
+    private void btnGestionMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_btnGestionMenuSelected
+        
+    }//GEN-LAST:event_btnGestionMenuSelected
+
+    private void btnEstudianteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEstudianteActionPerformed
         view_form_estudiante f_estudiante = new view_form_estudiante();
         f_estudiante.setLocation(0,0);
         desktop.removeAll();
@@ -115,7 +150,29 @@ public class Menu extends javax.swing.JFrame {
         desktop.repaint();
         f_estudiante.toFront();
         f_estudiante.setVisible(true);
-    }//GEN-LAST:event_editMenuMenuSelected
+    }//GEN-LAST:event_btnEstudianteActionPerformed
+
+    private void btnProfesoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProfesoresActionPerformed
+        view_form_profesor f_profesor = new view_form_profesor();
+        f_profesor.setLocation(0,0);
+        desktop.removeAll();
+        desktop.add(f_profesor);
+        desktop.revalidate();
+        desktop.repaint();
+        f_profesor.toFront();
+        f_profesor.setVisible(true);
+    }//GEN-LAST:event_btnProfesoresActionPerformed
+
+    private void btnHorarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHorarioActionPerformed
+        view_form_profesor f_profesor = new view_form_profesor();
+        f_profesor.setLocation(0,0);
+        desktop.removeAll();
+        desktop.add(f_profesor);
+        desktop.revalidate();
+        desktop.repaint();
+        f_profesor.toFront();
+        f_profesor.setVisible(true);
+    }//GEN-LAST:event_btnHorarioActionPerformed
  
     /**
      * @param args the command line arguments
@@ -153,8 +210,11 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem btnEstudiante;
+    private javax.swing.JMenu btnGestion;
+    private javax.swing.JMenuItem btnHorario;
+    private javax.swing.JMenuItem btnProfesores;
     private javax.swing.JDesktopPane desktop;
-    private javax.swing.JMenu editMenu;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;

@@ -15,7 +15,7 @@ import java.sql.ResultSet;
  *
  * @author erick
  */
-public class view_form_estudiante extends javax.swing.JInternalFrame {
+public class view_form_horario extends javax.swing.JInternalFrame {
     //DBConnect cdb = new DBConnect();
     
     /**
@@ -24,7 +24,7 @@ public class view_form_estudiante extends javax.swing.JInternalFrame {
     DBConnect cc = new DBConnect();
     Connection con = cc.Conectar();
     
-    public view_form_estudiante() {
+    public view_form_horario() {
         
         initComponents();
         mostrarDatos();
@@ -37,25 +37,27 @@ public class view_form_estudiante extends javax.swing.JInternalFrame {
      */
     @SuppressWarnings("unchecked")
     public void ModelTableDefault (){
-        String titulos[] = {"Codigo", "Apellidos", "Nombres", "Cedula", "Promedio", "Estado"};
+        String titulos[] = {"ID", "Nombre", "Apellido", "Cedula", "Celular", "Mail", "Titulo", "Estado"};
         DefaultTableModel modelo = new DefaultTableModel(null, titulos);
         tablaEstudiantes.setModel(modelo);
     }
     public void mostrarDatos(){
-         String titulos[] = {"Codigo", "Apellidos", "Nombres", "Cedula", "Promedio", "Estado"};
-         String registro[] = new String[6];
+         String titulos[] = {"ID", "Nombre", "Apellido", "Cedula", "Celular", "Mail", "Titulo", "Estado"};
+         String registro[] = new String[8];
          DefaultTableModel modelo = new DefaultTableModel(null, titulos);
-         String SQL = "SELECT * FROM estudiante";
+         String SQL = "SELECT * FROM profesor";
          try {
              Statement st = (Statement) con.createStatement();
              ResultSet rs = st.executeQuery(SQL);
              while(rs.next()){
-                registro[0] = rs.getString("estu_codigo");
-                registro[1] = rs.getString("estu_apellido");
-                registro[2] = rs.getString("estu_nombre");
-                registro[3] = rs.getString("estu_cedula");
-                registro[4] = rs.getString("estu_promedio");
-                registro[5] = rs.getString("estu_estado");
+                registro[0] = rs.getString("id");
+                registro[1] = rs.getString("prof_nombre");
+                registro[2] = rs.getString("prof_apellido");
+                registro[3] = rs.getString("prof_cedula");
+                registro[4] = rs.getString("prof_celular");
+                registro[5] = rs.getString("prof_mail");
+                registro[6] = rs.getString("prof_titulo");
+                registro[7] = rs.getString("prof_estado");
                 modelo.addRow(registro);
             }
             tablaEstudiantes.setModel(modelo);
@@ -75,21 +77,15 @@ public class view_form_estudiante extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         btnAgregar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
-        txtName = new javax.swing.JTextField();
-        txtLastName = new javax.swing.JTextField();
-        txtCedula = new javax.swing.JTextField();
-        txtProm = new javax.swing.JTextField();
         cbEstado = new javax.swing.JComboBox<>();
+        cbEstado1 = new javax.swing.JComboBox<>();
+        cbEstado2 = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaEstudiantes = new javax.swing.JTable();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -97,29 +93,21 @@ public class view_form_estudiante extends javax.swing.JInternalFrame {
 
         jLabel1.setFont(new java.awt.Font("Plus Jakarta Sans", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Gestion de Estudiantes");
+        jLabel1.setText("Gestion de Horarios");
         jLabel1.setFocusable(false);
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
 
         jLabel2.setFont(new java.awt.Font("Plus Jakarta Sans", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Nombre:");
+        jLabel2.setText("Inicio:");
 
         jLabel3.setFont(new java.awt.Font("Plus Jakarta Sans", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Apellido:");
+        jLabel3.setText("Salida:");
 
         jLabel4.setFont(new java.awt.Font("Plus Jakarta Sans", 0, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Cedula");
-
-        jLabel5.setFont(new java.awt.Font("Plus Jakarta Sans", 0, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Estado:");
-
-        jLabel6.setFont(new java.awt.Font("Plus Jakarta Sans", 0, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Promedio:");
+        jLabel4.setText("Dia:");
 
         btnAgregar.setBackground(new java.awt.Color(19, 22, 32));
         btnAgregar.setFont(new java.awt.Font("Plus Jakarta Sans", 1, 14)); // NOI18N
@@ -133,7 +121,7 @@ public class view_form_estudiante extends javax.swing.JInternalFrame {
 
         btnEditar.setBackground(new java.awt.Color(19, 22, 32));
         btnEditar.setFont(new java.awt.Font("Plus Jakarta Sans", 1, 14)); // NOI18N
-        btnEditar.setForeground(new java.awt.Color(217, 217, 217));
+        btnEditar.setForeground(new java.awt.Color(241, 241, 241));
         btnEditar.setText("Editar");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -143,7 +131,7 @@ public class view_form_estudiante extends javax.swing.JInternalFrame {
 
         btnEliminar.setBackground(new java.awt.Color(19, 22, 32));
         btnEliminar.setFont(new java.awt.Font("Plus Jakarta Sans", 1, 14)); // NOI18N
-        btnEliminar.setForeground(new java.awt.Color(217, 217, 217));
+        btnEliminar.setForeground(new java.awt.Color(229, 229, 229));
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -151,10 +139,24 @@ public class view_form_estudiante extends javax.swing.JInternalFrame {
             }
         });
 
-        cbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "EN CONTRATO", "RETIRADO" }));
+        cbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "07:00", "07:30", "08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "18:00" }));
         cbEstado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbEstadoActionPerformed(evt);
+            }
+        });
+
+        cbEstado1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "07:00", "07:30", "08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "18:00" }));
+        cbEstado1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbEstado1ActionPerformed(evt);
+            }
+        });
+
+        cbEstado2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "LUNES", "MARTES", "MIERCOLES", "JUEVES", "VIERNES", "SABADO", "DOMINGO" }));
+        cbEstado2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbEstado2ActionPerformed(evt);
             }
         });
 
@@ -168,57 +170,43 @@ public class view_form_estudiante extends javax.swing.JInternalFrame {
                 .addGap(51, 51, 51))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtProm))
+                    .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtName)
-                            .addComponent(txtLastName)
-                            .addComponent(cbEstado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(cbEstado1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbEstado2, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(35, 35, 35)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(txtLastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(10, 10, 10)
-                        .addComponent(jLabel4))
-                    .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1)
+                .addGap(35, 35, 35)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
+                    .addComponent(jLabel2)
                     .addComponent(cbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addComponent(txtProm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 123, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(cbEstado1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(25, 25, 25)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(cbEstado2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 153, Short.MAX_VALUE)
                 .addComponent(btnAgregar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnEditar)
@@ -282,15 +270,12 @@ public class view_form_estudiante extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        String SQL = "INSERT INTO estudiante(estu_apellido, estu_nombre, estu_cedula, estu_promedio, estu_estado)values(?,?,?,?,?)";
+        String SQL = "INSERT INTO profesor(prof_nombre, prof_apellido, prof_cedula, prof_celular, prof_mail, prof_titulo, prof_estado)values(?,?,?,?,?,?,?)";
         try {
             int select = cbEstado.getSelectedIndex();
             PreparedStatement pst = (PreparedStatement) con.prepareStatement(SQL);
-            pst.setString(1,txtLastName.getText());
-            pst.setString(2,txtName.getText());
-            pst.setString(3,txtCedula.getText());
-            pst.setString(4,txtProm.getText());
-            pst.setString(5,cbEstado.getItemAt(select));
+            
+            pst.setString(7,cbEstado.getItemAt(select));
             
             pst.execute();
             mostrarDatos();
@@ -304,29 +289,20 @@ public class view_form_estudiante extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        try {
-            int fila = tablaEstudiantes.getSelectedRow();
-            System.out.println(tablaEstudiantes.getValueAt(fila, 0));
-            String SQL = "DELETE FROM estudiante WHERE estu_codigo=" + tablaEstudiantes.getValueAt(fila, 0);
-            System.out.println("PASO1");
-            Statement st = (Statement) con.createStatement();
-            System.out.println("PASO2");
-            int n = st.executeUpdate(SQL);
-            System.out.println("PASO3");
-            if (n >= 0){
-                System.out.println("PASO4");
-                JOptionPane.showMessageDialog(null, "Ya se elimino.");
-            }
-            mostrarDatos();
-        } catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Hubo un error.");
-        }
-        
+        // TODO add your handling code here:
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void cbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbEstadoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbEstadoActionPerformed
+
+    private void cbEstado1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbEstado1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbEstado1ActionPerformed
+
+    private void cbEstado2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbEstado2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbEstado2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -345,20 +321,23 @@ public class view_form_estudiante extends javax.swing.JInternalFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(view_form_estudiante.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(view_form_horario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(view_form_estudiante.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(view_form_horario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(view_form_estudiante.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(view_form_horario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(view_form_estudiante.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(view_form_horario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new view_form_estudiante().setVisible(true);
+                new view_form_horario().setVisible(true);
             }
         });
     }
@@ -368,20 +347,16 @@ public class view_form_estudiante extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JComboBox<String> cbEstado;
+    private javax.swing.JComboBox<String> cbEstado1;
+    private javax.swing.JComboBox<String> cbEstado2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tablaEstudiantes;
-    private javax.swing.JTextField txtCedula;
-    private javax.swing.JTextField txtLastName;
-    private javax.swing.JTextField txtName;
-    private javax.swing.JTextField txtProm;
     // End of variables declaration//GEN-END:variables
 }
